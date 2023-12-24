@@ -24,13 +24,13 @@ function createDreamTeam(members) {
   members.forEach(function (e) {
     if (typeof(e) == 'string') {
       for (let i = 0; i < e.length; i++) {
-        if (e[i] >= 'A' && e[i] <= 'Z') {;
+        if (e[i] !== ' ' && e[i] >= 'a' && e[i] <= 'z') {
+          name += e[i].toUpperCase();
+          break
+        } else if (e[i] >= 'A' && e[i] <= 'Z') {;
           name += e[i];
           break
         }
-      }
-      if (e[0] >= 'a' && e[0] <= 'z') {
-        name += e[0].toUpperCase();
       }
     }
   })
