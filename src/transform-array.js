@@ -37,7 +37,7 @@ function transform(arr) {
     } else {
       return arr;
     }
-}
+  }
 }
 
 module.exports = {
