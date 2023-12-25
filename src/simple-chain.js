@@ -5,27 +5,62 @@ const { NotImplementedError } = require('../extensions/index.js');
  * 
  */
 const chainMaker = {
-  getLength() {
-    throw new NotImplementedError('Not implemented');
-    // remove line with error and write your code here
 
-    this.split('~~').length;
+  chain: [],
+  reversed: false,
+
+  _reset() {
+    this.chain = [];
+    this.reversed = false;
   },
-  addLink(/* value */) {
-    throw new NotImplementedError('Not implemented');
-    // remove line with error and write your code here
+
+  getLength() {
+   return this.chain.length;
   },
-  removeLink(/* position */) {
-    throw new NotImplementedError('Not implemented');
-    // remove line with error and write your code here
+  addLink(value) {
+    if (this.reversed) {
+      this.chain.unshift(value);
+    } else {
+      this.chain.push(value);
+    }
+    return this;
+  },
+  removeLink(position) {
+    if (!Number.isInteger(position)) {
+      this._reset();
+      throw new Error(`You can't remove incorrect link!`);
+    }
+
+
+    position--;
+    if (position < 0 || position >= this.chain.length) {
+      this._reset();
+      throw new Error(`You can't remove incorrect link!`);   
+    }
+
+
+    let index;
+    if (this.reversed) {
+      index = this.chain.length - position - 1;
+    } else {
+      index = position;
+    } 
+    this.chain.splice(index, 1);
+    return this;
   },
   reverseChain() {
-    throw new NotImplementedError('Not implemented');
-    // remove line with error and write your code here
+    this.reversed = !this.reversed;
+    return this;
   },
   finishChain() {
-    throw new NotImplementedError('Not implemented');
-    // remove line with error and write your code here
+    if (this.reversed) {
+      this.chain.reverse();
+    }
+
+    
+    let result = this.chain.map(i => `( ${i} )`).join("~~");
+    this._reset();
+    return result;
   }
 };
 
